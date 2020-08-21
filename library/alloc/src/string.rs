@@ -2161,6 +2161,17 @@ impl FromStr for String {
     }
 }
 
+impl<T> FromStr for T
+where
+    T: From<String>,
+{
+    type Err = core::convert::Infallible;
+    #[inline]
+    fn from_str(s: &str) -> Result<String, Self::Err> {
+        Ok(String::from(s).into())
+    }
+}
+
 /// A trait for converting a value to a `String`.
 ///
 /// This trait is automatically implemented for any type which implements the
